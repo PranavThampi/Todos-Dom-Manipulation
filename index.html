@@ -3,20 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Todo</title>    
+    <title>Todo</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-slate-800 p-9 items-center flex flex-col justify-center text-white">
+  <body class="bg-slate-800 p-9 items-center flex flex-col justify-center">
     <script src="./script.js" type="text/javascript"></script>
     <div
       class="w-full max-w-md bg-slate-500 p-9 mt-10 rounded-lg shadow-xl overflow-y-auto items-center text-center"
     >
       <!-- w-full max-w-md bg-gray-800 rounded-lg shadow-lg p-6 mt-16 mx-auto -->
-      <h1 class="text-2xl font-bold mb-5">Todo Application</h1>
+      <h1 class="text-2xl font-bold mb-5 text-white">Todo Application</h1>
 
       <div class="flex flex-col p-2">
-        <input type="text" class="rounded-md border-0 bg-slate-200 px-3.5 py-2 text-black shadow-sm focus:ring focus:outline-none focus:ring-red-500 placeholder:italic placeholder: text-center" placeholder="Enter Task"/>
-        <button class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 mt-2" onclick="addTodo()">Add todo</button>
+        <input
+          type="text"
+          class="rounded-md border-0 bg-slate-200 px-3.5 py-2 text-black shadow-sm focus:ring focus:outline-none focus:ring-red-500 placeholder:italic placeholder: text-center"
+          placeholder="Enter Task"
+        />
+        <button
+          class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 mt-2"
+          onclick="addTodo()"
+        >
+          Add todo
+        </button>
       </div>
       <div id="todos"></div>
     </div>

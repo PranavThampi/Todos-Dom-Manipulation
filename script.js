@@ -14,8 +14,9 @@ function todoComponent(todo, ctr) {
   let p;
   if (todo.isEdit) {
     p = document.createElement("input");
-    p.id = `edit-${ctr}`
-    p.className = "rounded-md w-full border-0 bg-slate-200 px-3.5 py-2 text-black shadow-sm focus:ring focus:outline-none focus:ring-red-500 placeholder:italic placeholder: text-center"    
+    p.id = `edit-${ctr}`;
+    p.className =
+      "rounded-md w-full border-0 bg-slate-200 px-3.5 py-2 text-black shadow-sm focus:ring focus:outline-none focus:ring-red-500 placeholder:italic placeholder: text-center";
     p.placeholder = todo.title;
   } else {
     p = document.createElement("p");
@@ -56,8 +57,18 @@ function todoComponent(todo, ctr) {
   completeBtn.setAttribute("onclick", `completeTodo(${ctr})`);
   completeBtn.setAttribute(
     "class",
-    "rounded-md bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 m-2"
+    `rounded-md px-3.5 py-2.5 text-sm text-white font-semibold shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 m-2`
   );
+  if (todo.isEdit) {
+    completeBtn.disabled = true;
+    completeBtn.classList.add(
+      "disabled:bg-gray",
+      "disabled:hover:bg-gray",
+      "pointer-events-none"
+    );
+  } else {
+    completeBtn.classList.add("bg-green-600");
+  }
   completeBtn.innerHTML = todo.completed ? "Unfinished" : "Finished";
 
   div.appendChild(p);
