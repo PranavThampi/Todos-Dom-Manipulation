@@ -11,13 +11,22 @@ function todoComponent(todo, ctr) {
   );
 
   //   P tag
-  const p = document.createElement("p");
-  p.setAttribute("id", `p-${ctr}`);
-  let pClass = "text-xl";
-  if (todo.completed) {
-    pClass += " line-through";
+  let p;
+  if (todo.isEdit) {
+    p = document.createElement("input");
+    p.id = `edit-${ctr}`
+    p.className = "rounded-md w-full border-0 bg-slate-200 px-3.5 py-2 text-black shadow-sm focus:ring focus:outline-none focus:ring-red-500 placeholder:italic placeholder: text-center"    
+    p.placeholder = todo.title;
+  } else {
+    p = document.createElement("p");
+    p.setAttribute("id", `p-${ctr}`);
+    let pClass = "text-xl";
+    if (todo.completed) {
+      pClass += " line-through";
+    }
+    p.setAttribute("class", pClass);
+    p.innerHTML = todo.title;
   }
-  p.setAttribute("class", pClass);
 
   //   Delete button
   const deleteBtn = document.createElement("button");
@@ -30,12 +39,17 @@ function todoComponent(todo, ctr) {
 
   //   Update button
   const updateBtn = document.createElement("button");
-  updateBtn.setAttribute("onclick", `updateTodo(${ctr})`);
   updateBtn.setAttribute(
     "class",
     "rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 m-2"
   );
-  updateBtn.innerHTML = "Update";
+  if (todo.isEdit) {
+    updateBtn.innerHTML = "Save";
+    updateBtn.setAttribute("onclick", `updateTodo(${ctr}, true)`);
+  } else {
+    updateBtn.innerHTML = "Update";
+    updateBtn.setAttribute("onclick", `updateTodo(${ctr})`);
+  }
 
   //   Mark as Complete button
   const completeBtn = document.createElement("button");
@@ -45,8 +59,6 @@ function todoComponent(todo, ctr) {
     "rounded-md bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 m-2"
   );
   completeBtn.innerHTML = todo.completed ? "Unfinished" : "Finished";
-
-  p.innerHTML = todo.title;
 
   div.appendChild(p);
   div.appendChild(deleteBtn);
@@ -71,6 +83,7 @@ function addTodo() {
   todos.push({
     title: document.querySelector("input").value,
     completed: false,
+    isEdit: false,
   });
   render();
   document.querySelector("input").value = "";
@@ -89,8 +102,12 @@ function completeTodo(id) {
 }
 
 // Update todo
-function updateTodo(id) {
-    
+function updateTodo(id, updatedTodoId = false) {
+  if (updatedTodoId) {
+    todos[id].title = document.getElementById(`edit-${id}`).value;
+  }
+  todos[id].isEdit = !todos[id].isEdit;
+  render();
 }
 
 // Render the todos
